@@ -60,14 +60,85 @@ CampaignIQ was benchmarked on real-world campaign data (`campaign_dataset.csv`, 
 
 ---
 
+---
+
 ## 🤖 Interactive Grounded AI Copilot
 
-CampaignIQ features an embedded **AI Analyst** powered by `Meta-Llama-3.1-8B-Instruct`:
-* **Strict Grounding:** Automatically ingests session artifacts (`causal_impact_summary.csv`, `next_wave_recommendations_aipw.csv`, SMD tables).
-* **Arithmetic Guardrails:** Hard constraints prevent the model from hallucinating confidence intervals or falsely adding subgroup uplift percentages.
-* **Executive Decisioning:** Translates dense econometric matrices into clear, actionable budget reallocation strategies in plain English.
+CampaignIQ embeds a real-time conversational **AI Analyst** powered by `Meta-Llama-3.1-8B-Instruct` (accessible both directly in the dashboard and via the floating copilot drawer):
+
+* **Zero-Hallucination Grounding:** Dynamically binds conversation context to deterministic session artifacts (`causal_impact_summary.csv`, `next_wave_recommendations_aipw.csv`, `balance_smd.csv`).
+* **Strict Arithmetic Guardrails:** Explicit prompt constraints forbid the LLM from fabricating confidence intervals or falsely summing percentage uplifts across independent sub-populations.
+* **Executive Decision Translation:** Translates dense econometric balance tables into plain-English strategic decisions.
+
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ 💬 CampaignIQ AI Analyst (Session: #ffe96861 - Grounded in Live Output Data)           │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ 👤 User: "What is our true causal uplift, and why does naive analytics mislead us?"    │
+│                                                                                        │
+│ 🤖 AI Analyst:                                                                         │
+│ "Based on your verified run artifacts:                                                 │
+│  • Naive Correlational Difference: +6.73 percentage points.                            │
+│  • True Causal Uplift (AIPW): +5.11 percentage points (95% CI: [2.41%, 7.80%]).       │
+│  • The 1.62pp Phantom Gap: Traditional analytics falsely credits your campaign for    │
+│    bookings from patients who were already going to schedule appointments naturally.   │
+│    Our Doubly-Robust engine adjusted for confounding variables like prior engagement   │
+│    (-0.303 SMD) and district skews (+0.298 SMD), driving post-weighting SMD < 0.01."  │
+│                                                                                        │
+│ 👤 User: "Where should we allocate 90% of our Wave 2 budget?"                         │
+│                                                                                        │
+│ 🤖 AI Analyst:                                                                         │
+│ "Prune saturated cohorts and concentrate budget into top-performing CATE segments:    │
+│  1. Chennai (Ages 40–59): +9.07 percentage points estimated causal uplift.             │
+│  2. Chennai (Ages 18–39): +7.26 percentage points estimated causal uplift.             │
+│  3. Optimal Timing: Shift outreach to Morning (+6.91pp) over Evening (+4.12pp) for    │
+│     an immediate +2.79pp efficiency gain."                                             │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
+
+## 📋 Autonomously Generated Executive Report (`report.md`)
+
+Each run automatically synthesizes a C-suite executive briefing directly from statistical output matrices. Below is an excerpt from the generated [`v1/benchmark_results/report.md`](./v1/benchmark_results/report.md):
+
+> ### **Executive Summary**
+> Our causal impact analysis of the recent health campaign reveals a significant increase in the 7-day booking rate among the target audience. The campaign was effective in driving bookings, with a **5.11 percentage point increase** in the 7-day booking rate. This positive outcome is statistically significant, and we are **95% confident that the true effect lies between 2.41% and 7.80%**.
+> 
+> ### **Key Strategic Findings**
+> * **Overall True Uplift:** +5.11 percentage points (AIPW doubly-robust estimate).
+> * **Top-Performing CATE Segments for Next Wave:**
+>   1. **Adults aged 40–59 (Chennai):** Estimated Uplift: **+9.07 percentage points**.
+>   2. **Young adults aged 18–39 (Chennai):** Estimated Uplift: **+7.26 percentage points**.
+>   3. **Adolescents (Ages 0–17):** Estimated Uplift: **+6.92 percentage points**.
+> 
+> ### **Resource Allocation Recommendations**
+> Discontinue dead-weight spend on saturated cohorts that convert naturally. Redirect 100% of Wave 2 capital into adults aged 40–59 and morning channel distributions to maximize net appointment acquisition at minimum marginal CAC.
+
+---
+
+## 🎮 Working Demo & Pipeline Workflow
+
+```mermaid
+graph TD
+    A[📁 Raw Campaign / Transaction Dataset] --> B[🧹 Automated Confounder Profiling]
+    B --> C[⚖️ Propensity Score Modeling]
+    B --> D[📈 Outcome Regression Modeling]
+    C & D --> E[🎯 Doubly-Robust AIPW 5-Fold Cross-Fitting]
+    E --> F[📊 ATE Calculation: +5.11% vs Naive +6.73%]
+    E --> G[🔍 CATE Subgroup Slicing & Heterogeneity]
+    E --> H[📉 Covariate Balance Love Plot SMD < 0.01]
+    F & G & H --> I[📋 Deterministic Artifacts CSVs & Markdown]
+    I --> J[🤖 Grounded LLaMA-3.1-8B AI Copilot]
+    I --> K[💻 Interactive React Dashboard UI]
+    J & K --> L[🚀 Strategic Wave 2 Budget Deployment]
+```
+
+### **End-to-End User Experience:**
+1. **Upload & Ingestion:** Upload any campaign or transaction CSV via drag-and-drop or select the pre-loaded benchmark dataset.
+2. **Causal Engine Execution:** The backend runs 5-fold cross-fitted AIPW, evaluating treatment and control potential outcomes under the Neyman-Rubin causal model.
+3. **Interactive Visual Dashboard:** Inspect overall ATE, CATE subgroup breakdowns, covariate balance Love Plots, and propensity distribution overlaps.
+4. **Conversational AI Analysis:** Ask open-ended or suggested questions to the grounded AI Copilot to explore scenarios, segment ROI, and budget tradeoffs in real-time.
 
 ## 🎯 The Challenge
 
