@@ -4,12 +4,14 @@
 
 ### *Causal Analytics for Public Health Impact*
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-148.100.109.34-blue?style=for-the-badge)](http://148.100.109.34/)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsowmii200521-bit%2FCAMPAIGN-IQ)
 [![License](https://img.shields.io/badge/License-Apache_2.0-green?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-Latest-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![LLaMA](https://img.shields.io/badge/LLaMA-3.1--8B-0467DF?style=for-the-badge&logo=meta&logoColor=white)](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)
 
-### [Download Test Dataset Here](./v1/backend/campaign_dataset.csv)
+### [📁 Download Test Dataset Here](./v1/backend/campaign_dataset.csv)
 ---
 
 ### *Move beyond correlation. Measure true causal impact.*
@@ -195,16 +197,29 @@ graph LR
 
 ---
 
-### IBM Z Community Cloud Use Case
+### 🌐 Modern Cloud & Vercel Production Stack
 
-The IBM Z Community Cloud provided the core infrastructure for deploying CampaignIQ, serving as a secure, reliable, and enterprise-grade platform for our full-stack data science application.
+CampaignIQ is engineered for production deployment across Vercel and modern containerized cloud services:
 
-| Component/Feature | Role in CampaignIQ Project | Benefit & Advantage |
+| Component / Layer | Technology | Role in CampaignIQ Architecture |
 | :--- | :--- | :--- |
-| **LinuxONE VM (s390x)** | Core infrastructure for hosting the entire application stack (Nginx, Flask, React). | Provided an **enterprise-grade, secure, and reliable platform**, ideal for handling sensitive data analysis and running AI workloads. |
-| **Ubuntu 22.04 OS** | The operating system for installing all software (Python, Node.js, Nginx). | Offered a **familiar and standard Linux environment**, making development and deployment straightforward on the Z architecture. |
-| **Public Networking** | Made the web application globally accessible via a public IP and secured the server using the `ufw` firewall. | Demonstrated **standard cloud networking capabilities**, allowing the project to be deployed and used like any modern web application. |
-| **Production Stack** | Hosted a complete production-ready stack: **Nginx** as a reverse proxy, **Flask** for the backend API, and **PM2** as a process manager. | Showcased that the platform can run a **modern, robust software stack**, proving its versatility for data-driven web solutions. |
+| **Frontend Edge CDN** | **Vercel** (Vite + React 18) | Delivers sub-100ms global edge delivery, automatic SSL, SPA routing, and zero-downtime rollouts. |
+| **Causal Econometrics API** | **Flask + Gunicorn** (Python 3.10) | Executes 5-fold cross-fitted AIPW, propensity score matching, and CATE subgroup slicing. |
+| **Grounded AI Copilot** | **Meta-Llama-3.1-8B-Instruct** | Provides zero-hallucination conversational analysis strictly bounded by session statistical CSVs. |
+| **Reverse Proxy & Routing** | **Vercel Rewrites / Vite Proxy** | Seamlessly proxies `/api/*` traffic between client and backend with zero CORS friction. |
+
+---
+
+## 📚 Project Documentation & Technical Guides
+
+For in-depth explanations of the math, API contracts, deployment, and FinTech applications, see our specialized documentation:
+
+| Document | Description |
+| :--- | :--- |
+| 🔬 **[Technical & Econometric Architecture](docs/ARCHITECTURE.md)** | Deep dive into Neyman-Rubin potential outcomes, Doubly-Robust AIPW math, cross-fitting, and LLM guardrails. |
+| 📡 **[REST API Reference](docs/API_REFERENCE.md)** | Full specification for `/api/analyze`, `/api/chat`, `/api/download`, and `/api/health` with schemas. |
+| 💳 **[FinTech & Razorpay Revenue Recovery Playbook](docs/FINTECH_PLAYBOOK.md)** | Implementation guide for payment retry optimization, natural vs. persuadable drop-offs, and merchant ROI. |
+| 🚀 **[Vercel & Production Cloud Deployment Guide](docs/DEPLOYMENT.md)** | Step-by-step instructions for 1-click Vercel frontend deploy and Render/Railway backend hosting. |
 
 ---
 
@@ -257,56 +272,47 @@ While this benchmark demonstrates public health appointment bookings, CampaignIQ
 
 ### **⚙️ Configuration: Hugging Face Token** 🔑
 
-The project requires a Hugging Face token for ML model access. Choose your preferred method:
+The project uses `Meta-Llama-3.1-8B-Instruct` via the Hugging Face Serverless Inference API for the AI Copilot:
 
-<details>
-<summary><b>📌 Method 1: Environment File (Recommended)</b></summary>
-
-**Most secure - prevents token exposure in version control**
-
-1. Create `.env` in the project root (`v1/.env`):
+1. Obtain a fine-grained Hugging Face token at [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) (with Inference API permissions).
+2. Set it in `v1/backend/.env`:
    ```bash
    HF_TOKEN="your_hugging_face_token_here"
    ```
-
-2. Verify `.env` is in `.gitignore`
-
-</details>
-
-<details>
-<summary><b>⚡ Method 2: Direct Code Entry (Quick Setup)</b></summary>
-
-**Faster setup for development**
-
-1. Open `v1/backend/causal_impact.py`
-2. Navigate to line ~74 and update:
-   ```python
-   hf_token = os.environ.get("HF_TOKEN", "your_actual_token_here")
-   ```
-
-</details>
+*(Note: `.env` is already configured in `.gitignore` to prevent secret exposure).*
 
 ---
 
-### **📦 Installation**
+### **📦 Quick Start: Local Execution**
 
 ```bash
-# 1. Clone your repository
-git clone <your-repo-url>
-cd CampaignIQ
-```
+# 1. Clone the repository
+git clone https://github.com/sowmii200521-bit/CAMPAIGN-IQ.git
+cd CAMPAIGN-IQ
 
-```bash
-# 2. Frontend setup (Terminal 1)
+# 2. Start Python Backend (Terminal 1)
+cd v1/backend
+pip install -r requirements.txt
+python app.py
+# Backend runs at http://127.0.0.1:5000
+
+# 3. Start React Frontend (Terminal 2)
 cd v1
 npm install
 npm run dev
+# Frontend runs at http://localhost:8080 (reverse-proxies /api to backend)
 ```
-```bash
-# 3. Backend setup (Terminal 2)
-pip install -r requirements.txt
-python backend/app.py
-```
+
+---
+
+### **🚀 Deploy to Vercel**
+
+Click the button below to deploy the frontend to Vercel instantly:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsowmii200521-bit%2FCAMPAIGN-IQ)
+
+For the complete hosting guide (connecting the Python backend on Render/Railway), see **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
+
 
 ---
 

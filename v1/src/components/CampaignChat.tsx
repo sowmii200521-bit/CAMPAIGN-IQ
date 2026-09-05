@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Send, 
   Bot, 
@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { getApiUrl } from '@/lib/api';
 
 interface Message {
   id: string;
@@ -109,7 +110,7 @@ export const CampaignChat: React.FC<CampaignChatProps> = ({ runId, className = '
         .filter(m => m.id !== 'welcome' && !m.id.startsWith('grounded-'))
         .map(m => ({ role: m.role, content: m.content }));
 
-      const response = await fetch('/api/chat', {
+      const response = await fetch(getApiUrl('/api/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

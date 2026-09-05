@@ -46,6 +46,16 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    """Health check endpoint for Vercel, Render, or uptime monitoring."""
+    return jsonify({
+        "status": "healthy",
+        "service": "CampaignIQ Causal Engine API",
+        "version": "1.0.0"
+    }), 200
+
+
 @app.route('/api/analyze', methods=['POST'])
 def analyze_data():
     """

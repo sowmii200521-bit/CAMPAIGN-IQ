@@ -25,6 +25,7 @@ import { Button } from '@/components/ui/button';
 import LiquidEther from '@/components/LiquidEther';
 import heroImage from '@/assets/hero-campaign-red.jpg';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { getApiUrl } from '@/lib/api';
 
 // Helper component for the FULL preview inside the dialog
 const FullPreviewContent: React.FC<{ fileType: string; content: string; }> = ({ fileType, content }) => {
@@ -94,7 +95,7 @@ const Index = () => {
     const fetchAllPreviews = async () => {
       const newPreviews: Record<string, string> = {};
       for (const result of analysisData.results!) {
-        const url = `/api/download/${analysisData.runId}/${result.fileName}`;
+        const url = getApiUrl(`/api/download/${analysisData.runId}/${result.fileName}`);
         if (result.fileType === 'png') {
           newPreviews[result.fileName] = url;
         } else {
@@ -121,7 +122,7 @@ const Index = () => {
 
     const fetchFullContent = async () => {
       setIsPreviewLoading(true);
-      const url = `/api/download/${analysisData.runId}/${previewFile.fileName}`;
+      const url = getApiUrl(`/api/download/${analysisData.runId}/${previewFile.fileName}`);
       
       if (previewFile.fileType === 'png') {
         setFullPreviewContent(url); // For images, the URL is the content
@@ -209,7 +210,7 @@ const Index = () => {
     formData.append('file', file);
 
     try {
-      const response = await fetch('/api/analyze', {
+      const response = await fetch(getApiUrl('/api/analyze'), {
         method: 'POST',
         body: formData,
       });
@@ -235,7 +236,7 @@ const Index = () => {
 
   const handleDownload = (fileName: string) => {
     if (analysisData.runId) {
-      const downloadUrl = `/api/download/${analysisData.runId}/${fileName}`;
+      const downloadUrl = getApiUrl(`/api/download/${analysisData.runId}/${fileName}`);
       window.open(downloadUrl, '_blank');
       console.log(`Downloading ${fileName} from run ${analysisData.runId}`);
     } else {
@@ -249,7 +250,7 @@ const Index = () => {
         setAnalysisError("Please complete an analysis run before attempting to download all files.");
         return;
     }
-    const downloadUrl = `/api/download_all/${currentRunId}`;
+    const downloadUrl = getApiUrl(`/api/download_all/${currentRunId}`);
     const link = document.createElement('a');
     link.href = downloadUrl;
     link.setAttribute('download', `CampaignIQ_Report_${currentRunId}.zip`);
