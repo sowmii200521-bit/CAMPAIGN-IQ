@@ -39,3 +39,8 @@ Thumbs.db
 
 # Scripts
 push_to_github.bat
+
+# Local MCP Configurations with Tokens
+.agents/mcp_config.json
+.cursor/mcp.json
+.vscode/mcp.json
