@@ -4,6 +4,7 @@
 
 ### *Causal Analytics for Public Health Impact*
 
+[![Live Web App](https://img.shields.io/badge/🚀_Live_App-razorpay--cyan.vercel.app-blue?style=for-the-badge&logo=vercel)](https://razorpay-cyan.vercel.app/)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsowmii200521-bit%2FCAMPAIGN-IQ)
 [![License](https://img.shields.io/badge/License-Apache_2.0-green?style=for-the-badge)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -11,7 +12,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![LLaMA](https://img.shields.io/badge/LLaMA-3.1--8B-0467DF?style=for-the-badge&logo=meta&logoColor=white)](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)
 
-### [📁 Download Test Dataset Here](./v1/backend/campaign_dataset.csv)
+### 🌐 **Live Web Application:** [https://razorpay-cyan.vercel.app](https://razorpay-cyan.vercel.app)
+### 📁 [Download Test Dataset Here](./v1/backend/campaign_dataset.csv)
 ---
 
 ### *Move beyond correlation. Measure true causal impact.*
@@ -305,9 +307,10 @@ npm run dev
 
 ---
 
-### **🚀 Deploy to Vercel**
+### **🚀 Live Web App & Vercel Deployment**
 
-Click the button below to deploy the frontend to Vercel instantly:
+* 🌐 **Production Web Application:** [https://razorpay-cyan.vercel.app](https://razorpay-cyan.vercel.app)
+* ⚡ **Deploy Your Own Instance:**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsowmii200521-bit%2FCAMPAIGN-IQ)
 
