@@ -1,0 +1,38 @@
+# Environment & Secrets
+.env
+*.env
+*.env.local
+
+# Virtual environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+npm-debug.log*
+
+# Generated outputs & uploads
+outputs/
+uploads/
+v1/outputs/
+v1/uploads/
+v1/backend/venv/
+v1/backend/__pycache__/
+v1/node_modules/
+v1/dist/
+
+# System / OS
+.DS_Store
+Thumbs.db
+*.local
+
+# Media & Recordings
+*.mp4
+*.mov
+*.avi
+*.mkv
