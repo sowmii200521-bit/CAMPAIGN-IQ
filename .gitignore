@@ -36,3 +36,6 @@ Thumbs.db
 *.mov
 *.avi
 *.mkv
+
+# Scripts
+push_to_github.bat
