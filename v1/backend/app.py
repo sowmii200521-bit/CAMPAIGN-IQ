@@ -31,9 +31,16 @@ CORS(app)
 # to get to the 'CampaignIQ' directory (the project root).
 PROJECT_ROOT = Path(__file__).parent.parent
 
-# Define directories relative to the Project Root
-BASE_OUTPUT_DIR = PROJECT_ROOT / 'outputs'
-TEMP_DIR = PROJECT_ROOT / 'uploads'
+# Define directories (supports both local environment and Vercel serverless /tmp)
+IS_SERVERLESS = bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"))
+if IS_SERVERLESS:
+    import tempfile
+    BASE_OUTPUT_DIR = Path(tempfile.gettempdir()) / 'outputs'
+    TEMP_DIR = Path(tempfile.gettempdir()) / 'uploads'
+else:
+    BASE_OUTPUT_DIR = PROJECT_ROOT / 'outputs'
+    TEMP_DIR = PROJECT_ROOT / 'uploads'
+
 SCRIPT_PATH = PROJECT_ROOT / 'backend' / 'causal_impact.py' 
 
 # Ensure the necessary directories exist upon startup

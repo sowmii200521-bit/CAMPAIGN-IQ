@@ -44,3 +44,5 @@ push_to_github.bat
 .agents/mcp_config.json
 .cursor/mcp.json
 .vscode/mcp.json
+
+.vercel
