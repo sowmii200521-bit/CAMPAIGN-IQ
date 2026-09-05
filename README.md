@@ -24,9 +24,9 @@ CampaignIQ is a state-of-the-art analytical solution that leverages causal infer
 
 <div align="center">
 
-| Campaign Analytics Dashboard | Metrics Overview |
+| Campaign Analytics Dashboard | Grounded AI Chat Assistant (LLaMA-3.1-8B) |
 |:---:|:---:|
-| ![Output 1](./v1/images/output_1.jpg) | ![Output 3](./v1/images/output_3.jpg) |
+| ![Output 1](./v1/images/output_1.jpg) | ![AI Chat Assistant](./v1/images/ai_chat_assistant.png) |
 
 | Segment Heterogeneity (CATE) | Causal Impact Uplift |
 |:---:|:---:|
@@ -60,9 +60,13 @@ CampaignIQ was benchmarked on real-world campaign data (`campaign_dataset.csv`, 
 
 ---
 
----
+## 🤖 Interactive Grounded AI Chat Assistant
 
-## 🤖 Interactive Grounded AI Copilot
+<div align="center">
+
+![CampaignIQ AI Analyst Copilot Interface](./v1/images/ai_chat_assistant.png)
+
+</div>
 
 CampaignIQ embeds a real-time conversational **AI Analyst** powered by `Meta-Llama-3.1-8B-Instruct` (accessible both directly in the dashboard and via the floating copilot drawer):
 
