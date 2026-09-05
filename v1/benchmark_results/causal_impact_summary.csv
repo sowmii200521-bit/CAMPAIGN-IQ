@@ -1,0 +1,5 @@
+Method,ATE_pp,CI_lower_pp,CI_upper_pp,Notes
+Naive diff (biased),6.73,4.29,9.17,"Simple difference, no adjustment"
+Stratified (size-weighted),5.67,3.13,8.2,Weighted by stratum size
+IPW (Hajek),4.88,2.19,7.43,"Stabilized IPW, bootstrap CI"
+"AIPW (cross-fit, double-robust)",5.11,2.41,7.8,PRIMARY - Doubly robust with cross-fitting

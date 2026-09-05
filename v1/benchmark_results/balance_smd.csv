@@ -1,0 +1,16 @@
+covariate,smd_unweighted,smd_weighted,balanced
+district=Madurai,-0.093,0.008,True
+district=Chennai,0.298,-0.004,False
+district=Coimbatore,-0.246,-0.004,False
+locale=ta-IN,0.195,-0.002,False
+locale=en-IN,-0.195,0.002,False
+age_band=18-39,-0.059,-0.005,True
+age_band=0-17,-0.067,-0.009,True
+age_band=40-59,0.047,-0.003,True
+age_band=60+,0.076,0.017,True
+prior_engagement=low,-0.303,0.008,False
+prior_engagement=high,0.309,-0.006,False
+prior_engagement=med,0.097,-0.004,True
+send_time=morning,-0.03,0.018,True
+send_time=evening,0.03,-0.018,True
+chronic_diabetes,-0.003,0.004,True
