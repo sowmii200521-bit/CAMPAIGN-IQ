@@ -263,6 +263,23 @@ const Index = () => {
   const handlePreview = (fileName: string, fileType: string) => {
     setPreviewFile({ fileName, fileType });
   };
+
+  const handleLoadDemoData = async () => {
+    try {
+      setIsAnalyzing(true);
+      setAnalysisError(null);
+      const response = await fetch(`${import.meta.env.BASE_URL}campaign_dataset.csv`);
+      if (!response.ok) throw new Error('Failed to load demo dataset file');
+      const blob = await response.blob();
+      const demoFile = new File([blob], 'campaign_dataset.csv', { type: 'text/csv' });
+      setUploadedFile(demoFile);
+      await startAnalysis(demoFile);
+    } catch (error: any) {
+      console.error('Failed to load demo dataset:', error);
+      setAnalysisError(error.message || 'Failed to load demo dataset');
+      setIsAnalyzing(false);
+    }
+  };
   
   const showResults = analysisData.runId && !isAnalyzing && !analysisError;
   const showUpload = !isAnalyzing && !showResults;
@@ -285,10 +302,18 @@ const Index = () => {
               <p className="text-muted-foreground max-w-xl leading-relaxed">
                 Upload campaign data for instant analysis, comprehensive reports, and actionable insights.
               </p>
-              <Button size="lg" className="h-14 px-8 rounded-full gap-3 group shadow-lg hover:shadow-xl" onClick={() => document.getElementById('upload-section')?.scrollIntoView({ behavior: 'smooth' })}>
-                Get Started
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <Button size="lg" className="h-14 px-8 rounded-full gap-3 group shadow-lg hover:shadow-xl" onClick={() => document.getElementById('upload-section')?.scrollIntoView({ behavior: 'smooth' })}>
+                  Get Started
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </Button>
+                <Button asChild variant="outline" size="lg" className="h-14 px-8 rounded-full gap-3 bg-background/70 backdrop-blur-sm border-2 hover:bg-muted/80 shadow-md">
+                  <a href={`${import.meta.env.BASE_URL}campaign_dataset.csv`} download="campaign_dataset.csv">
+                    <Download className="w-5 h-5 text-primary" />
+                    <span>Download Demo Dataset (.csv)</span>
+                  </a>
+                </Button>
+              </div>
             </div>
             <div className="relative animate-scale-in lg:pl-8 h-full min-h-[500px] lg:min-h-[600px] flex items-center">
               <div className="absolute inset-0 -m-16 bg-gradient-radial from-red-500/25 via-orange-500/15 to-transparent blur-[200px] opacity-80" />
@@ -308,6 +333,32 @@ const Index = () => {
               <h2>Upload Your Campaign Data</h2>
               <p className="text-muted-foreground">Supports CSV files with campaign interaction data.</p>
             </div>
+
+            {/* Benchmark Demo Dataset Helper Card */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-card border border-primary/20 bg-gradient-to-r from-red-500/5 via-orange-500/5 to-transparent shadow-sm animate-fade-in">
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                  <FileSpreadsheet className="w-6 h-6" />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-foreground">Need sample data to explore?</p>
+                  <p className="text-xs text-muted-foreground">Download our benchmark dataset with 3,000+ causal experiment records (386 KB).</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0">
+                <Button asChild variant="outline" size="sm" className="w-full sm:w-auto gap-2 rounded-xl border-primary/30 hover:bg-primary/10 shadow-sm">
+                  <a href={`${import.meta.env.BASE_URL}campaign_dataset.csv`} download="campaign_dataset.csv">
+                    <Download className="w-4 h-4" />
+                    Download CSV
+                  </a>
+                </Button>
+                <Button variant="default" size="sm" className="w-full sm:w-auto gap-2 rounded-xl shadow-sm" onClick={handleLoadDemoData} disabled={isAnalyzing}>
+                  <Sparkles className="w-4 h-4" />
+                  Try Demo Data
+                </Button>
+              </div>
+            </div>
+
             <div className="animate-scale-in">
               <FileUploadZone onFileSelect={handleFileSelect} />
             </div>
@@ -441,12 +492,29 @@ const Index = () => {
 
       <footer className="border-t border-border/40 mt-24">
         <div className="container mx-auto px-6 py-12">
-          <div className="text-center space-y-4">
-            <div className="flex items-center justify-center gap-2">
-              <BarChart3 className="w-6 h-6" />
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-2">
+              <BarChart3 className="w-6 h-6 text-primary" />
               <span className="text-xl font-semibold">CampaignIQ</span>
             </div>
-            <p className="text-sm text-muted-foreground">Powered by advanced causal inference and AI</p>
+            <p className="text-sm text-muted-foreground text-center">Powered by advanced causal inference and AI</p>
+            <div className="flex items-center gap-5">
+              <a 
+                href={`${import.meta.env.BASE_URL}campaign_dataset.csv`} 
+                download="campaign_dataset.csv"
+                className="text-sm font-medium text-primary hover:underline transition-colors flex items-center gap-1.5"
+              >
+                <Download className="w-4 h-4" /> Demo Dataset (.csv)
+              </a>
+              <a 
+                href="https://github.com/sowmii200521-bit/CAMPAIGN-IQ" 
+                target="_blank" 
+                rel="noreferrer"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </footer>

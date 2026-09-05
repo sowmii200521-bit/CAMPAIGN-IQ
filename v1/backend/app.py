@@ -63,6 +63,20 @@ def health_check():
     }), 200
 
 
+@app.route('/api/demo_dataset', methods=['GET'])
+def get_demo_dataset():
+    """Endpoint to download the benchmark demo dataset directly."""
+    dataset_path = Path(__file__).parent / 'campaign_dataset.csv'
+    if dataset_path.exists():
+        return send_file(
+            dataset_path,
+            mimetype='text/csv',
+            as_attachment=True,
+            download_name='campaign_dataset.csv'
+        )
+    return jsonify({"error": "Demo dataset not found"}), 404
+
+
 @app.route('/api/analyze', methods=['POST'])
 def analyze_data():
     """

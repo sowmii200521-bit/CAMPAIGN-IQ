@@ -29,7 +29,15 @@ Checks service availability and operational readiness.
 
 ---
 
-### 2. Execute Causal Analysis
+### 2. Download Demo Dataset
+Returns the bundled 3,000+ row benchmark CSV dataset (`campaign_dataset.csv`) for testing and demonstration purposes.
+
+* **Endpoint:** `GET /api/demo_dataset`
+* **Response (200 OK):** File stream (`text/csv`, attachment filename: `campaign_dataset.csv`)
+
+---
+
+### 3. Execute Causal Analysis
 Uploads an observational campaign CSV, runs the 5-fold cross-fitted AIPW econometric engine, and returns session metrics and file manifests.
 
 * **Endpoint:** `POST /api/analyze`
